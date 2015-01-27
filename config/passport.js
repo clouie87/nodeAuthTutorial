@@ -56,19 +56,19 @@ module.exports = function(passport) {
 
                 // find a user whose email is the same as the forms email
                 // we are checking to see if the user trying to login already exists
-                User.findOne(function(rowresult, user) {
-                    console.log(rowresult + ' what the fuck!');
+                User.findOne(email, function(err, isNotAvailable, user) {
+                    //console.log('userfound: ' + isNotAvailable);
                     // if there are any errors, return the error
-                    //if (err)
-                    //    return done(err);
+                    if (err)
+                        return done(err);
                     //if (){
                     //
                     //}
 
                     // check to see if theres already a user with that email
-                    if (rowresult == false) {
-                        console.log(user.email +' is not available');
-                        //return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
+                    if (isNotAvailable == true) {
+                        //console.log(user.email +' is not available');
+                        return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
                     } else {
                         console.log('new local user');
 
@@ -79,15 +79,15 @@ module.exports = function(passport) {
 
 
                         // set the user's local credentials
-                        newUser.name = req.body.name;
-                        console.log(req.body);
+                        //newUser.name = req.body.name;
+                        //console.log(req.body);
                         newUser.email    = req.body.email;
                         newUser.password = req.body.password;
-                        newUser.photo = 'http://www.flippersmack.com/wp-content/uploads/2011/08/Scuba-diving.jpg';
-                        newUser.save(client);
+                        //newUser.photo = 'http://www.flippersmack.com/wp-content/uploads/2011/08/Scuba-diving.jpg';
+                        newUser.save();
+                        //client.end();
                         return done(null, newUser);
                         //newUser.password = newUser.generateHash(password);
-                        return this.hasOne();
                     }
 
                 });
