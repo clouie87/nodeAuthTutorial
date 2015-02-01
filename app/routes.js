@@ -54,6 +54,7 @@ module.exports = function(app, passport) {
         res.render('profile.ejs', {
             user : req.user // get the user out of session and pass to template
         });
+        console.log(req.user);
     });
 
     // =====================================
@@ -83,8 +84,11 @@ module.exports = function(app, passport) {
 function isLoggedIn(req, res, next) {
 
     // if user is authenticated in the session, carry on
-    if (req.isAuthenticated())
+    if (req.isAuthenticated()) {
+        console.log('isLoggedin');
         return next();
+    }
+    console.log('is not logged in');
 
     // if they aren't redirect them to the home page
     res.redirect('/');

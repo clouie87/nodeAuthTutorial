@@ -24,12 +24,13 @@ module.exports = function(passport) {
 
     // used to serialize the user for the session
     passport.serializeUser(function(user, done) {
-        done(null, user);
-
+        console.log(user.u_id +" was seralized");
+        done(null, user.u_id);
     });
 
     // used to deserialize the user
     passport.deserializeUser(function(id, done) {
+        console.log(id + "is deserialized");
         User.findById(id, function(err, user) {
             done(err, user);
         });
@@ -74,20 +75,21 @@ module.exports = function(passport) {
 
                         // if there is no user with that email
                         // create the user
-                        var newUser            = new User();
-
+                        user            = new User();
 
 
                         // set the user's local credentials
-                        //newUser.name = req.body.name;
-                        //console.log(req.body);
-                        newUser.email    = req.body.email;
-                        newUser.password = req.body.password;
+
+                        user.email    = req.body.email;
+                        user.password = req.body.password;
                         //newUser.photo = 'http://www.flippersmack.com/wp-content/uploads/2011/08/Scuba-diving.jpg';
-                        newUser.save();
-                        //client.end();
-                        return done(null, newUser);
-                        //newUser.password = newUser.generateHash(password);
+
+                        user.save(function(newUser) {
+                            console.log("the object user is: ", newUser);
+                            passport.authenticate();
+                            return done(null, newUser);
+                            //newUser.password = newUser.generateHash(password);
+                        });
                     }
 
                 });

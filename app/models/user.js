@@ -13,7 +13,7 @@ function User(){
     this.email = "";
     this.password= ""; //need to declare the things that i want to be remembered for each user in the database
 
-    this.save = function() {
+    this.save = function(callback) {
         var conString = "postgres://carolinelouie@localhost/auth";
 
         var client = new pg.Client(conString);
@@ -28,18 +28,42 @@ function User(){
                 }
                 console.log(result.rows);
                 //console.log(this.email);
-                client.end();
             });
+            client.query('SELECT * FROM users ORDER BY u_id desc limit 1', null, function(err, result){
+
+                if(err){
+                    return callback(null);
+                }
+                //if no rows were returned from query, then new user
+                if (result.rows.length > 0){
+                    console.log(result.rows[0] + ' is found!');
+                    var user = new User();
+                    user.email= result.rows[0]['email'];
+                    user.password = result.rows[0]['password'];
+                    user.u_id = result.rows[0]['u_id'];
+                    console.log(user.email);
+                    client.end();
+                    return callback(user);
+                }
+            });
+
+
 
             //whenever we call 'save function' to object USER we call the insert query which will save it into the database.
         //});
     };
         //User.connect
 
-    this.findById = function(callback){
-        return callback (false);
-
-    };
+    //this.findById = function(u_id, callback){
+    //    console.log("we are in findbyid");
+    //    var user = new User();
+    //    user.email= 'carol';
+    //    user.password='gah';
+    //    console.log(user);
+    //
+    //    return callback(null, user);
+    //
+    //};
 
 
 }
@@ -91,11 +115,27 @@ User.findOne = function(email, callback){
 };
 
 User.findById = function(id, callback){
-    return callback (false, null);
-};
+    console.log("we are in findbyid");
+    var conString = "postgres://carolinelouie@localhost/auth";
+    var client = new pg.Client(conString);
 
-User.query = function(callback){
+    client.connect();
+    client.query("SELECT * from users where u_id=$1", [id], function(err, result){
 
+        if(err){
+            return callback(err, null);
+        }
+        //if no rows were returned from query, then new user
+        if (result.rows.length > 0){
+            console.log(result.rows[0] + ' is found!');
+            var user = new User();
+            user.email= result.rows[0]['email'];
+            user.password = result.rows[0]['password'];
+            user.u_id = result.rows[0]['u_id'];
+            console.log(user.email);
+            return callback(null, user);
+        }
+    });
 };
 
 //User.connect = function(callback){
