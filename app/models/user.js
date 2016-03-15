@@ -1,6 +1,6 @@
 var pg           = require('pg');
 
-var conString = "postgres://carolinelouie@localhost/auth";
+var conString = process.env.DATABASE_URL;
 
 var client = new pg.Client(conString);
 
@@ -14,7 +14,6 @@ function User(){
     this.password= ""; //need to declare the things that i want to be remembered for each user in the database
 
     this.save = function(callback) {
-        var conString = "postgres://carolinelouie@localhost/auth";
 
         var client = new pg.Client(conString);
         client.connect();
@@ -69,7 +68,6 @@ function User(){
 }
 
 User.findOne = function(email, callback){
-    var conString = "postgres://carolinelouie@localhost/auth";
     var client = new pg.Client(conString);
 
     var isNotAvailable = false; //we are assuming the email is taking
@@ -116,7 +114,6 @@ User.findOne = function(email, callback){
 
 User.findById = function(id, callback){
     console.log("we are in findbyid");
-    var conString = "postgres://carolinelouie@localhost/auth";
     var client = new pg.Client(conString);
 
     client.connect();
