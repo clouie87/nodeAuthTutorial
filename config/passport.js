@@ -55,7 +55,7 @@ module.exports = function(passport) {
             process.nextTick(function() {
 
                 // find the user in the database based on their facebook id
-                User.findOne(profile.emails[0].value, function(err, user) {
+                User.findOne(profile.emails[0].value, function(err, isNotAvailable,user) {
                     console.log(user,"user Details");
                     // if there is an error, stop everything and return that
                     // ie an error connecting to the database
@@ -63,7 +63,7 @@ module.exports = function(passport) {
                         return done(err);
 
                     // if the user is found, then log them in
-                    if (user) {
+                    if (!isNotAvailable) {
                         return done(null, user); // user found, return that user
                     } else {
                          return done(null, profile); // user found, return that user
