@@ -66,7 +66,7 @@ module.exports = function(passport) {
                     if (!isNotAvailable) {
                         return done(null, user); // user found, return that user
                     } else {
-                         return done(null, profile); // user found, return that user
+                         return done(null); // user found, return that user
                     }
 
                 });
