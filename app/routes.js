@@ -7,7 +7,8 @@ module.exports = function(app, passport) {
     app.get('/', function(req, res) {
         res.render('index.ejs'); // load the index.ejs file
     });
-
+    
+    app.get('/api', './routes/api.js');
     // =====================================
     // PROFILE SECTION =====================
     // =====================================
