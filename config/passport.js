@@ -23,8 +23,8 @@ module.exports = function(passport) {
 
     // used to serialize the user for the session
     passport.serializeUser(function(user, done) {
-        console.log(user," was seralized");
-        done(null, user.sfid);
+        console.log(user.rows[0].sfid," was seralized");
+        done(null, user.rows[0].sfid);
     });
 
     // used to deserialize the user
