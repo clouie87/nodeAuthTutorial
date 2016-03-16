@@ -2,7 +2,6 @@
 
 
 // load all the things we need
-var LocalStrategy   = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 var pg           = require('pg');
 
@@ -45,8 +44,8 @@ module.exports = function(passport) {
             // pull in our app id and secret from our auth.js file
             clientID        : process.env.FB_clientID,
             clientSecret    : process.env.FB_clientSecret,
-            callbackURL     : process.env.BASE_URL+'auth/facebook/callback'
-
+            callbackURL     : process.env.BASE_URL+'auth/facebook/callback',
+            enableProof: true
         },
 
         // facebook will send back the token and profile
