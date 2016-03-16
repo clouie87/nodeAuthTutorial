@@ -1,1 +1,1 @@
-angular.module('scotchTodo', ['orderController', 'orderService']);
+angular.module('orderApp', ['orderController', 'orderService']);
