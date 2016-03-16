@@ -7,64 +7,9 @@ var client = new pg.Client(conString);
 
 
 function User(){
-    this.u_id = 0;
-    //this.name ='';
-    //this.photo ='';
+    this.sfid = 0;
     this.email = "";
-    this.password= ""; //need to declare the things that i want to be remembered for each user in the database
-
-    this.save = function(callback) {
-
-        var client = new pg.Client(conString);
-        client.connect();
-
-        console.log(this.email +' will be saved');
-
-            client.query('INSERT INTO users(email, password) VALUES($1, $2)', [this.email, this.password], function (err, result) {
-                if(err){
-                    console.log(err);
-                    return console.error('error running query', err);
-                }
-                console.log(result.rows);
-                //console.log(this.email);
-            });
-            client.query('SELECT * FROM users ORDER BY u_id desc limit 1', null, function(err, result){
-
-                if(err){
-                    return callback(null);
-                }
-                //if no rows were returned from query, then new user
-                if (result.rows.length > 0){
-                    console.log(result.rows[0] + ' is found!');
-                    var user = new User();
-                    user.email= result.rows[0]['email'];
-                    user.password = result.rows[0]['password'];
-                    user.u_id = result.rows[0]['u_id'];
-                    console.log(user.email);
-                    client.end();
-                    return callback(user);
-                }
-            });
-
-
-
-            //whenever we call 'save function' to object USER we call the insert query which will save it into the database.
-        //});
-    };
-        //User.connect
-
-    //this.findById = function(u_id, callback){
-    //    console.log("we are in findbyid");
-    //    var user = new User();
-    //    user.email= 'carol';
-    //    user.password='gah';
-    //    console.log(user);
-    //
-    //    return callback(null, user);
-    //
-    //};
-
-
+    this.name= ""; 
 }
 
 User.findOne = function(email, callback){
@@ -91,7 +36,7 @@ User.findOne = function(email, callback){
             return callback(err, isNotAvailable, this);
         }
         //if no rows were returned from query, then new user
-        if (result.rows.length > 0){
+        if (result.rows.length < 0){
             isNotAvailable = true; // update the user for return in callback
             ///email = email;
             //password = result.rows[0].password;
@@ -115,12 +60,12 @@ User.findOne = function(email, callback){
 //});
 };
 
-User.findById = function(id, callback){
+User.findBysfid = function(sfid, callback){
     console.log("we are in findbyid");
     var client = new pg.Client(conString);
 
     client.connect();
-    client.query("SELECT * from users where u_id=$1", [id], function(err, result){
+    client.query("SELECT * from salesforce.contact where sfid=$1", [sfid], function(err, result){
 
         if(err){
             return callback(err, null);
@@ -130,8 +75,8 @@ User.findById = function(id, callback){
             console.log(result.rows[0] + ' is found!');
             var user = new User();
             user.email= result.rows[0]['email'];
-            user.password = result.rows[0]['password'];
-            user.u_id = result.rows[0]['u_id'];
+            user.name = result.rows[0]['name'];
+            user.sfid = result.rows[0]['sfid'];
             console.log(user.email);
             return callback(null, user);
         }
