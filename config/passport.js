@@ -6,7 +6,7 @@ var LocalStrategy   = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 var pg           = require('pg');
 
-var conString = "postgres://carolinelouie@localhost/auth";
+var conString = process.env.DATABASE_URL;
 
 var client = new pg.Client(conString);
 
@@ -43,9 +43,9 @@ module.exports = function(passport) {
     passport.use(new FacebookStrategy({
 
             // pull in our app id and secret from our auth.js file
-            clientID        : '295897893929835',
-            clientSecret    : '016c48478907f77a428e2dfb5724edf7',
-            callbackURL     : 'http://localhost:8080/auth/facebook/callback'
+            clientID        : process.env.FB_clientID,
+            clientSecret    : process.env.FB_clientSecret,
+            callbackURL     : process.env.DATABASE_URL+'auth/facebook/callback'
 
         },
 
