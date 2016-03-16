@@ -65,7 +65,7 @@ module.exports = function(passport) {
                     if (user) {
                         return done(null, user); // user found, return that user
                     } else {
-                        
+                         return done(null, profile); // user found, return that user
                     }
 
                 });
