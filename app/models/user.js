@@ -84,6 +84,8 @@ User.findOne = function(email, callback){
     //    }
 
     client.query("SELECT * from salesforce.contact where email=$1", [email], function(err, result){
+        
+        console.log(err);
         if(err){
             return callback(err, isNotAvailable, this);
         }
