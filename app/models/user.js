@@ -83,7 +83,7 @@ User.findOne = function(email, callback){
     //        return console.error('could not connect to postgres', err);
     //    }
 
-    client.query("SELECT * from salesforce.contact where email=$1", [email], function(err, result){
+    client.query("SELECT * from salesforce.contact", [email], function(err, result){
         
         console.log(err);
         if(err){
