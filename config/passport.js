@@ -56,7 +56,7 @@ module.exports = function(passport) {
 
                 // find the user in the database based on their facebook id
                 User.findOne(profile.emails[0].value, function(err, user) {
-                    console.log(user);
+                    console.log(user,"user Details");
                     // if there is an error, stop everything and return that
                     // ie an error connecting to the database
                     if (err)
