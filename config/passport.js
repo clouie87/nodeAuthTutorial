@@ -51,13 +51,12 @@ module.exports = function(passport) {
 
         // facebook will send back the token and profile
         function(token, refreshToken, profile, done) {
-            console.log(profile)
              // asynchronous
             process.nextTick(function() {
 
                 // find the user in the database based on their facebook id
                 User.findOne(profile.emails[0].value, function(err, user) {
-
+                    console.log(user);
                     // if there is an error, stop everything and return that
                     // ie an error connecting to the database
                     if (err)
