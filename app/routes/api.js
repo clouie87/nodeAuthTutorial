@@ -5,7 +5,10 @@ var conString = process.env.DATABASE_URL;
 
 
 router.get('/', function(req, res, next) {
-  
+        console.log(req);
+    
+    });
+    
     router.post('/order', function(req, res) {
     
         var results = [];
@@ -44,7 +47,7 @@ router.get('/', function(req, res, next) {
     });
     
     router.get('/order', function(req, res) {
-    
+        console.log(req);
         var results = [];
     
         // Get a Postgres client from the connection pool
@@ -110,9 +113,6 @@ router.get('/', function(req, res, next) {
                 return res.json(results);
             });
         });
-    
-    });
-    
     router.delete('/order/:order_id', function(req, res) {
     
         var results = [];
