@@ -1,58 +1,157 @@
-var Todo = require('./models/todo');
+var express = require('express');
+var router = express.Router();
+var pg = require('pg');
+var conString = process.env.DATABASE_URL;
 
-function getTodos(res) {
-    Todo.find(function (err, todos) {
 
-        // if there is an error retrieving, send the error. nothing after res.send(err) will execute
-        if (err) {
-            res.send(err);
-        }
-
-        res.json(todos); // return all todos in JSON format
-    });
-}
-;
-
-module.exports = function (app) {
-
-    // api ---------------------------------------------------------------------
-    // get all todos
-    app.get('/api/todos', function (req, res) {
-        // use mongoose to get all todos in the database
-        getTodos(res);
-    });
-
-    // create todo and send back all todos after creation
-    app.post('/api/todos', function (req, res) {
-
-        // create a todo, information comes from AJAX request from Angular
-        Todo.create({
-            text: req.body.text,
-            done: false
-        }, function (err, todo) {
-            if (err)
-                res.send(err);
-
-            // get and return all the todos after you create another
-            getTodos(res);
-        });
-
-    });
-
-    // delete a todo
-    app.delete('/api/todos/:todo_id', function (req, res) {
-        Todo.remove({
-            _id: req.params.todo_id
-        }, function (err, todo) {
-            if (err)
-                res.send(err);
-
-            getTodos(res);
+router.get('/', function(req, res, next) {
+  
+    router.post('/order', function(req, res) {
+    
+        var results = [];
+    
+        // Grab data from http request
+        var data = {text: req.body.text, complete: false};
+    
+        // Get a Postgres client from the connection pool
+        pg.connect(conString, function(err, client, done) {
+            // Handle connection errors
+            if(err) {
+              done();
+              console.log(err);
+              return res.status(500).json({ success: false, data: err});
+            }
+    
+            // SQL Query > Insert Data
+            client.query("INSERT INTO items(text, complete) values($1, $2)", [data.text, data.complete]);
+    
+            // SQL Query > Select Data
+            var query = client.query("SELECT * FROM items ORDER BY id ASC");
+    
+            // Stream results back one row at a time
+            query.on('row', function(row) {
+                results.push(row);
+            });
+    
+            // After all data is returned, close connection and return results
+            query.on('end', function() {
+                done();
+                return res.json(results);
+            });
+    
+    
         });
     });
-
-    // application -------------------------------------------------------------
-    app.get('*', function (req, res) {
-        res.sendFile(__dirname + '/public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
+    
+    router.get('/order', function(req, res) {
+    
+        var results = [];
+    
+        // Get a Postgres client from the connection pool
+        pg.connect(conString, function(err, client, done) {
+            // Handle connection errors
+            if(err) {
+              done();
+              console.log(err);
+              return res.status(500).json({ success: false, data: err});
+            }
+    
+            // SQL Query > Select Data
+            var query = client.query("SELECT * FROM items ORDER BY id ASC;");
+    
+            // Stream results back one row at a time
+            query.on('row', function(row) {
+                results.push(row);
+            });
+    
+            // After all data is returned, close connection and return results
+            query.on('end', function() {
+                done();
+                return res.json(results);
+            });
+    
+        });
+    
     });
-};
+    
+    router.put('/order', function(req, res) {
+    
+        var results = [];
+    
+        // Grab data from the URL parameters
+        var id = req.params.todo_id;
+    
+        // Grab data from http request
+        var data = {text: req.body.text, complete: req.body.complete};
+    
+        // Get a Postgres client from the connection pool
+        pg.connect(conString, function(err, client, done) {
+            // Handle connection errors
+            if(err) {
+              done();
+              console.log(err);
+              return res.status(500).send(json({ success: false, data: err}));
+            }
+    
+            // SQL Query > Update Data
+            client.query("UPDATE items SET text=($1), complete=($2) WHERE id=($3)", [data.text, data.complete, id]);
+    
+            // SQL Query > Select Data
+            var query = client.query("SELECT * FROM items ORDER BY id ASC");
+    
+            // Stream results back one row at a time
+            query.on('row', function(row) {
+                results.push(row);
+            });
+    
+            // After all data is returned, close connection and return results
+            query.on('end', function() {
+                done();
+                return res.json(results);
+            });
+        });
+    
+    });
+    
+    router.delete('/order/:order_id', function(req, res) {
+    
+        var results = [];
+    
+        // Grab data from the URL parameters
+        var id = req.params.todo_id;
+    
+    
+        // Get a Postgres client from the connection pool
+        pg.connect(connectionString, function(err, client, done) {
+            // Handle connection errors
+            if(err) {
+              done();
+              console.log(err);
+              return res.status(500).json({ success: false, data: err});
+            }
+    
+            // SQL Query > Delete Data
+            client.query("DELETE FROM items WHERE id=($1)", [id]);
+    
+            // SQL Query > Select Data
+            var query = client.query("SELECT * FROM items ORDER BY id ASC");
+    
+            // Stream results back one row at a time
+            query.on('row', function(row) {
+                results.push(row);
+            });
+    
+            // After all data is returned, close connection and return results
+            query.on('end', function() {
+                done();
+                return res.json(results);
+            });
+        });
+    
+    });
+
+
+});
+
+
+module.exports = router;
