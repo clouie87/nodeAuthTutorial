@@ -29,11 +29,8 @@ User.findOne = function(email, callback){
     //    }
 
     client.query("SELECT * from salesforce.contact where email=$1", [email], function(err, result){
-        
-        console.log(err);
-        console.log(result);
         if(err){
-            return callback(err, isNotAvailable, this);
+            return callback(err, isNotAvailable, result);
         }
         //if no rows were returned from query, then new user
         if (result.rows.length < 0){
@@ -53,7 +50,7 @@ User.findOne = function(email, callback){
         // parameter this: the User object;
 
         client.end();
-        return callback(false, isNotAvailable, this);
+        return callback(false, isNotAvailable, result);
 
 
     });
