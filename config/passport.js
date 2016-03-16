@@ -50,8 +50,9 @@ module.exports = function(passport) {
 
         // facebook will send back the token and profile
         function(token, refreshToken, profile, done) {
-
-            // asynchronous
+            console.log(profile);
+            return done(null, profile);
+            /* asynchronous
             process.nextTick(function() {
 
                 // if there is no user found with that facebook id, create them
@@ -72,7 +73,7 @@ module.exports = function(passport) {
                 return done(null, newUser);
                 });
             });
-
+            */
         }));
 
     };
