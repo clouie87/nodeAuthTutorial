@@ -45,7 +45,7 @@ module.exports = function(passport) {
             clientID        : process.env.FB_clientID,
             clientSecret    : process.env.FB_clientSecret,
             callbackURL     : process.env.BASE_URL+'auth/facebook/callback',
-            profileFields: ['id', 'displayName', 'link', 'about_me', 'photos', 'emails'],
+            profileFields: ['id', 'displayName', 'link', 'photos', 'emails'],
             enableProof: true
         },
 
