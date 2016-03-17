@@ -6,12 +6,6 @@ angular.module('orderService', [])
 		return {
 			get : function() {
 				return $http.get('/api/order');
-			},
-			create : function(todoData) {
-				return $http.post('/api/order', todoData);
-			},
-			delete : function(id) {
-				return $http.delete('/api/order/' + id);
 			}
 		}
 	}]);
