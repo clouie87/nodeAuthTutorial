@@ -112,6 +112,9 @@
 	      </div>
 	    </div>
 	    <div class="slds-card__body">
+			<ul>
+			<li ng-repeat="(name, data) in orders">{{name}}: {{data.totalamount}}</li>
+			</ul>
 	      <table class="slds-table slds-table--bordered slds-max-medium-table--stacked-horizontal slds-no-row-hover">
 	        <thead>
 	          <tr>
