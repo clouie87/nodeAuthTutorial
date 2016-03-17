@@ -89,27 +89,85 @@
 	</div>
 	 <div class="slds-card">
 	    <div class="slds-card__header slds-grid">
-	      <div class="slds-media slds-media--center slds-has-flexi-truncate">
-	        <div class="slds-media__figure">
-	          <svg aria-hidden="true" class="slds-icon slds-icon-standard-contact slds-icon--small">
-	            <use xlink:href="/icons/standard-sprite/svg/symbols.svg#contact"></use>
-	          </svg>
-	        </div>
-	        <div class="slds-media__body">
-	          <h2 class="slds-text-heading--small slds-truncate">My Orders</h2>
-	        </div>
-	      </div>
-	      <div class="slds-no-flex">
-	        <div class="slds-button-group">
-	          <button class="slds-button slds-button--neutral slds-button--small">Button</button>
-	          <button class="slds-button slds-button--icon-border-filled slds-toggle-visibility">
-	            <svg aria-hidden="true" class="slds-button__icon">
-	              <use xlink:href="/icons/utility-sprite/svg/symbols.svg#down"></use>
-	            </svg>
-	            <span class="slds-assistive-text">Show More</span>
-	          </button>
-	        </div>
-	      </div>
+	     	<div class="slds-page-header" role="banner">
+		  <div class="slds-grid">
+		    <div class="slds-col slds-has-flexi-truncate">
+		      <p class="slds-text-heading--label">Leads</p>
+		      <div class="slds-grid">
+		        <div class="slds-grid slds-type-focus slds-no-space">
+		          <h1 class="slds-page-header__title slds-truncate" title="My Leads (truncates)">My Leads (truncates)</h1>
+		          <button class="slds-button slds-button--icon-bare slds-shrink-none slds-align-middle slds-m-left--x-small">
+		            <svg aria-hidden="true" class="slds-button__icon">
+		              <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#down"></use>
+		            </svg>
+		            <span class="slds-assistive-text">View More</span>
+		          </button>
+		        </div>
+		        <button class="slds-button slds-button--icon-more slds-shrink-none slds-m-left--large" aria-haspopup="true">
+		          <svg aria-hidden="true" class="slds-button__icon">
+		            <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#settings"></use>
+		          </svg>
+		          <span class="slds-assistive-text">Settings</span>
+		          <svg aria-hidden="true" class="slds-button__icon slds-button__icon--x-small">
+		            <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#down"></use>
+		          </svg>
+		        </button>
+		        <button class="slds-button slds-button--brand slds-button-space-left slds-m-right--medium slds-shrink-none slds-align-middle slds-hide" aria-hidden="true">Save</button>
+		      </div>
+		    </div>
+		    <div class="slds-col slds-no-flex slds-align-bottom">
+		      <div class="slds-grid">
+		        <div class="slds-button-space-left">
+		          <button class="slds-button slds-button--icon-more" aria-haspopup="true">
+		            <svg aria-hidden="true" class="slds-button__icon">
+		              <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#table"></use>
+		            </svg>
+		            <span class="slds-assistive-text">Table</span>
+		            <svg aria-hidden="true" class="slds-button__icon slds-button__icon--x-small">
+		              <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#down"></use>
+		            </svg>
+		          </button>
+		        </div>
+		        <div class="slds-button-group slds-button-space-left" role="group">
+		          <button class="slds-button slds-button--icon-border slds-not-selected">
+		            <svg aria-hidden="true" class="slds-button__icon">
+		              <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#chart"></use>
+		            </svg>
+		            <span class="slds-assistive-text">Chart</span>
+		          </button>
+		          <button class="slds-button slds-button--icon-border slds-not-selected">
+		            <svg aria-hidden="true" class="slds-button__icon">
+		              <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#filterList"></use>
+		            </svg>
+		            <span class="slds-assistive-text">Filter List</span>
+		          </button>
+		          <button class="slds-button slds-button--icon-more">
+		            <svg aria-hidden="true" class="slds-button__icon">
+		              <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#sort"></use>
+		            </svg>
+		            <span class="slds-assistive-text">Sort</span>
+		            <svg aria-hidden="true" class="slds-button__icon slds-button__icon--x-small">
+		              <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#down"></use>
+		            </svg>
+		            <span class="slds-assistive-text">More</span>
+		          </button>
+		        </div>
+		        <div class="slds-button-group" role="group">
+		          <button class="slds-button slds-button--neutral">New Lead</button>
+		          <div class="slds-button--last">
+		            <button class="slds-button slds-button--icon-border-filled">
+		              <svg aria-hidden="true" class="slds-button__icon">
+		                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#down"></use>
+		              </svg>
+		              <span class="slds-assistive-text">More Actions</span>
+		            </button>
+		          </div>
+		        </div>
+		      </div>
+		    </div>
+		  </div>
+		  <p class="slds-text-body--small slds-page-header__info">10 items • Sorted by Name</p>
+		</div>
 	    </div>
 	    <div class="slds-card__body">
 	      <table class="slds-table slds-table--bordered slds-max-medium-table--stacked-horizontal slds-no-row-hover">
