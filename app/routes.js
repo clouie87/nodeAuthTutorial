@@ -61,7 +61,7 @@ module.exports = function(app, passport) {
                 }
         
                 // SQL Query > Select Data
-                var query = client.query("SELECT * FROM salesforce.order INNER JOIN salesforce.orderitem ON salesforce.order.sfid = salesforce.orderitem.orderid WHERE accountid ='"+loginUser.accountid+"';");
+                var query = client.query("SELECT * FROM salesforce.order INNER JOIN salesforce.orderitem ON salesforce.order.sfid = salesforce.orderitem.orderid INNER JOIN salesforce.pricebookentry ON salesforce.orderitempricebookentryid = salesforce.pricebookentry.sfid WHERE accountid ='"+loginUser.accountid+"';");
                 // Stream results back one row at a time
                 query.on('row', function(row) {
                     results.push(row);
