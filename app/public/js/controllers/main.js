@@ -14,7 +14,7 @@ angular.module('orderController', [])
 				$scope.loading = false;
 			});
 
-		// CREATE ==================================================================
+		/* CREATE ==================================================================
 		// when submitting the add form, send the text to the node API
 		$scope.createOrder = function() {
 
@@ -46,5 +46,5 @@ angular.module('orderController', [])
 					$scope.loading = false;
 					$scope.orders = data; // assign our new list of todos
 				});
-		};
+		};*/
 	}]);
