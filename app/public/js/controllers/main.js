@@ -11,7 +11,7 @@ angular.module('orderController', [])
 		Order.get()
 			.success(function(data) {
 				$scope.orders = {};
-				for(var i=;i< data.length;i++){
+				for(var i=0;i< data.length;i++){
 					var orderItem = [];
 					if($scope.orders.hasOwnProperty(data[i].ordernumber)){
 						orderItem = $scope.orders[data[i].ordernumber];		
