@@ -135,11 +135,11 @@
 	        </thead>
 	        <tbody>
 	          <tr class="slds-hint-parent" ng-repaet="(orderNumber, order) in orders">
-	            <td class="slds-size--1-of-4" data-label="Order Number">{{order}}</td>
-	            <td class="slds-size--1-of-4" data-label="Total Amount">{{order.totalamount}}</td>
-	            <td class="slds-size--1-of-4" data-label="Status">{{order.status}}</td>
-	            <td class="slds-size--1-of-4" data-label="Order Date">{{order.lastvieweddate}}</td>
-	            <td class="slds-size--1-of-4" data-label="Items">
+	            <td class="slds-size--1-of-4" >{{order}}</td>
+	            <td class="slds-size--1-of-4" >{{order.totalamount}}</td>
+	            <td class="slds-size--1-of-4" >{{order.status}}</td>
+	            <td class="slds-size--1-of-4" >{{order.lastvieweddate}}</td>
+	            <td class="slds-size--1-of-4" >
 	            		<span class="slds-badge slds-theme--inverse" ng-repeat="orderItem in order.orderItem">{{orderItem.name}}</span>
 	            </td>
 	            <td>
