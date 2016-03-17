@@ -45,8 +45,7 @@ module.exports = function(app, passport) {
         res.redirect('/');
     });
     app.get('/api/order', function(req, res) {
-        
-        console.log('Request',req.user);
+        var loginUser = req.user;
         var results = [];
     
         // Get a Postgres client from the connection pool
@@ -59,7 +58,7 @@ module.exports = function(app, passport) {
             }
     
             // SQL Query > Select Data
-            var query = client.query("SELECT * FROM salesforce.order ORDER BY id ASC;");
+            var query = client.query("SELECT * FROM salesforce.order WHERE accountid = "+loginUser.accountid+" ORDER BY id ASC;");
     
             // Stream results back one row at a time
             query.on('row', function(row) {
