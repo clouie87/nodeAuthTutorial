@@ -130,13 +130,13 @@
 	          </tr>
 	        </thead>
 	        <tbody>
-	          <tr class="slds-hint-parent" ng-repaet="order in orders">
-	            <td class="slds-size--1-of-4" data-label="Number">{{order.orderNumber}}</td>
-	            <td class="slds-size--1-of-4" data-label="amount">{{order.totalamount}}</td>
-	            <td class="slds-size--1-of-4" data-label="status">{{order.status}}</td>
-	            <td class="slds-size--1-of-4" data-label="order date">{{order.lastvieweddate}}</td>
+	          <tr class="slds-hint-parent" ng-repaet="(key, value) in in orders">
+	            <td class="slds-size--1-of-4" data-label="Number">{{value.orderNumber}}</td>
+	            <td class="slds-size--1-of-4" data-label="amount">{{value.totalamount}}</td>
+	            <td class="slds-size--1-of-4" data-label="status">{{value.status}}</td>
+	            <td class="slds-size--1-of-4" data-label="order date">{{value.lastvieweddate}}</td>
 	            <td class="slds-size--1-of-4" data-label="order date">
-	            		<span class="slds-badge slds-theme--inverse" ng-repeat="orderItem in order.orderItem">{{orderItem.name}}</span>
+	            		<span class="slds-badge slds-theme--inverse" ng-repeat="orderItem in value.orderItem">{{orderItem.name}}</span>
 	            </td>
 	            <td>
 	              <button class="slds-button slds-button--icon-border-filled slds-button--icon-x-small">
