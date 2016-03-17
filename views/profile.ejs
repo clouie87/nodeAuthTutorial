@@ -2,7 +2,7 @@
 <!doctype html>
 
 <!-- ASSIGN OUR ANGULAR MODULE -->
-<html >
+<html ng-app="orderApp">
 <head>
     <!-- META -->
     <meta charset="utf-8">
@@ -73,7 +73,7 @@
 
 </head>
 <!-- SET THE CONTROLLER AND GET ALL TODOS -->
-<body >
+<body ng-controller="mainController">
     <nav class="navbar navbar-default">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -104,6 +104,7 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
   <div class="container">
+    {{orders}}
     <div class="row">
         <div class="col-md-12">
             <h1 class="text-center pull-left" >
