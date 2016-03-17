@@ -61,8 +61,7 @@ module.exports = function(app, passport) {
                 }
         
                 // SQL Query > Select Data
-                var query = client.query("SELECT *  FROM salesforce.account WHERE sfid ='"+logiUser.accountid+"' INNER JOIN salesforce.order ON sfid = accountid INNER JOIN salesforce.orderitem ON orderid = sfid INNER JOIN salesforce.pricebookentry ON pricebookentryid = sfid");
-        
+                var query = client.query("SELECT * FROM salesforce.order INNER JOIN orderitem ON sfid = orderid WHERE accountid ='"+logiUser.accountid+"';")
                 // Stream results back one row at a time
                 query.on('row', function(row) {
                     results.push(row);
