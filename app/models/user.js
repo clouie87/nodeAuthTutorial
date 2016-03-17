@@ -10,6 +10,7 @@ function User(){
     this.sfid = 0;
     this.email = "";
     this.name= ""; 
+    this.accountid= ""; 
 }
 
 User.findOne = function(email, callback){
@@ -74,6 +75,7 @@ User.findBysfid = function(sfid, callback){
             user.email= result.rows[0]['email'];
             user.name = result.rows[0]['name'];
             user.sfid = result.rows[0]['sfid'];
+            user.accountid =  result.rows[0]['accountid'];
             console.log(user.email);
             return callback(null, user);
         }
