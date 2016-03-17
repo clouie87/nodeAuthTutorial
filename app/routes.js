@@ -45,34 +45,38 @@ module.exports = function(app, passport) {
         res.redirect('/');
     });
     app.get('/api/order', function(req, res) {
-        var loginUser = req.user;
-        var results = [];
-    
-        // Get a Postgres client from the connection pool
-        pg.connect(conString, function(err, client, done) {
-            // Handle connection errors
-            if(err) {
-              done();
-              console.log(err);
-              return res.status(500).json({ success: false, data: err});
-            }
-    
-            // SQL Query > Select Data
-            var query = client.query("SELECT * FROM salesforce.order ORDER BY id ASC;");
-    
-            // Stream results back one row at a time
-            query.on('row', function(row) {
-                results.push(row);
+        
+        if(req.hasOwnProperty('user')){
+        
+            var loginUser = req.user;
+            var results = [];
+            // Get a Postgres client from the connection pool
+            pg.connect(conString, function(err, client, done) {
+                // Handle connection errors
+                if(err) {
+                  done();
+                  console.log(err);
+                  return res.status(500).json({ success: false, data: err});
+                }
+        
+                // SQL Query > Select Data
+                var query = client.query("SELECT * FROM salesforce.order WHERE accountid="+loginUser.accountid+" ORDER BY id ASC;");
+        
+                // Stream results back one row at a time
+                query.on('row', function(row) {
+                    results.push(row);
+                });
+        
+                // After all data is returned, close connection and return results
+                query.on('end', function() {
+                    done();
+                    return res.json(results);
+                });
+        
             });
-    
-            // After all data is returned, close connection and return results
-            query.on('end', function() {
-                done();
-                return res.json(results);
-            });
-    
-        });
-    
+        }else{
+            return res.status(500).json({ success: false});
+        }
     });
 };
 
