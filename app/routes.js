@@ -46,7 +46,7 @@ module.exports = function(app, passport) {
     });
     app.get('/api/order', function(req, res) {
         
-        console.log('Request',req);
+        console.log('Request',req.user);
         var results = [];
     
         // Get a Postgres client from the connection pool
