@@ -122,7 +122,7 @@
 	            <th class="slds-text-heading--label slds-size--1-of-4" scope="col">Total Amount</th>
 	            <th class="slds-text-heading--label slds-size--1-of-4" scope="col">Status</th>
 	            <th class="slds-text-heading--label slds-size--1-of-4" scope="col">Order Date</th>
-	            <th class="slds-text-heading--label slds-size--1-of-4" scope="col">Items</th>
+	            <!--<th class="slds-text-heading--label slds-size--1-of-4" scope="col">Items</th>-->
 	            <th class="row-action" scope="col">
 	              <button class="slds-button slds-button--icon-border-filled slds-button--icon-x-small">
 	                <svg aria-hidden="true" class="slds-button__icon slds-button__icon--hint slds-button__icon--small">
@@ -135,13 +135,13 @@
 	        </thead>
 	        <tbody>
 	          <tr class="slds-hint-parent" ng-repaet="(orderNumber, order) in orders">
-	            <td class="slds-size--1-of-4" >{{order}}</td>
+	            <td class="slds-size--1-of-4" >{{order.orderNumber}}</td>
 	            <td class="slds-size--1-of-4" >{{order.totalamount}}</td>
 	            <td class="slds-size--1-of-4" >{{order.status}}</td>
 	            <td class="slds-size--1-of-4" >{{order.lastvieweddate}}</td>
-	            <td class="slds-size--1-of-4" >
+	            <!--<td class="slds-size--1-of-4" >
 	            		<span class="slds-badge slds-theme--inverse" ng-repeat="orderItem in order.orderItem">{{orderItem.name}}</span>
-	            </td>
+	            </td>-->
 	            <td>
 	              <button class="slds-button slds-button--icon-border-filled slds-button--icon-x-small">
 	                <svg aria-hidden="true" class="slds-button__icon slds-button__icon--hint slds-button__icon--small">
