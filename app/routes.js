@@ -50,6 +50,7 @@ module.exports = function(app, passport) {
         
             var loginUser = req.user;
             var results = [];
+            console.log(loginUser);
             // Get a Postgres client from the connection pool
             pg.connect(conString, function(err, client, done) {
                 // Handle connection errors
@@ -60,7 +61,7 @@ module.exports = function(app, passport) {
                 }
         
                 // SQL Query > Select Data
-                var query = client.query("SELECT * FROM salesforce.order WHERE accountid="+loginUser.accountid+" ORDER BY id ASC;");
+                var query = client.query("SELECT * FROM salesforce.order WHERE accountid='"+loginUser.accountid+\"' ORDER BY id ASC;");
         
                 // Stream results back one row at a time
                 query.on('row', function(row) {
