@@ -12,12 +12,21 @@ angular.module('orderController', [])
 			.success(function(data) {
 				$scope.orders = {};
 				for(var i=0;i< data.length;i++){
+					
 					var orderItem = [];
 					if($scope.orders.hasOwnProperty(data[i].ordernumber)){
 						orderItem = $scope.orders[data[i].ordernumber];		
 					}
 					orderItem.push(data[i]);
-					$scope.orders[data[i].ordernumber] = orderItem;
+					
+					var orderDetails = {
+						orderNumber : data[i].ordernumber,
+						status : data[i].status,
+						totalamount : data[i].totalamount,
+						lastvieweddate : data[i].lastvieweddate,
+						orderItem : orderItem
+					}
+					$scope.orders[data[i].ordernumber] = orderDetails;
 				}
 				
 				$scope.loading = false;
