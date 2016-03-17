@@ -92,11 +92,11 @@
 	      <div class="slds-media slds-media--center slds-has-flexi-truncate">
 	        <div class="slds-media__figure">
 	          <svg aria-hidden="true" class="slds-icon slds-icon-standard-contact slds-icon--small">
-	            <use xlink:href="/assets/icons/standard-sprite/svg/symbols.svg#contact"></use>
+	            <use xlink:href="/icons/standard-sprite/svg/symbols.svg#contact"></use>
 	          </svg>
 	        </div>
 	        <div class="slds-media__body">
-	          <h2 class="slds-text-heading--small slds-truncate">Card Header (2)</h2>
+	          <h2 class="slds-text-heading--small slds-truncate">My Orders</h2>
 	        </div>
 	      </div>
 	      <div class="slds-no-flex">
@@ -104,7 +104,7 @@
 	          <button class="slds-button slds-button--neutral slds-button--small">Button</button>
 	          <button class="slds-button slds-button--icon-border-filled slds-toggle-visibility">
 	            <svg aria-hidden="true" class="slds-button__icon">
-	              <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#down"></use>
+	              <use xlink:href="/icons/utility-sprite/svg/symbols.svg#down"></use>
 	            </svg>
 	            <span class="slds-assistive-text">Show More</span>
 	          </button>
@@ -115,14 +115,15 @@
 	      <table class="slds-table slds-table--bordered slds-max-medium-table--stacked-horizontal slds-no-row-hover">
 	        <thead>
 	          <tr>
-	            <th class="slds-text-heading--label slds-size--1-of-4" scope="col">Name</th>
-	            <th class="slds-text-heading--label slds-size--1-of-4" scope="col">Company</th>
-	            <th class="slds-text-heading--label slds-size--1-of-4" scope="col">Title</th>
-	            <th class="slds-text-heading--label slds-size--1-of-4" scope="col">Email</th>
+	            <th class="slds-text-heading--label slds-size--1-of-4" scope="col">Order Number</th>
+	            <th class="slds-text-heading--label slds-size--1-of-4" scope="col">Total Amount</th>
+	            <th class="slds-text-heading--label slds-size--1-of-4" scope="col">Status</th>
+	            <th class="slds-text-heading--label slds-size--1-of-4" scope="col">Order Date</th>
+	            <th class="slds-text-heading--label slds-size--1-of-4" scope="col">Items</th>
 	            <th class="row-action" scope="col">
 	              <button class="slds-button slds-button--icon-border-filled slds-button--icon-x-small">
 	                <svg aria-hidden="true" class="slds-button__icon slds-button__icon--hint slds-button__icon--small">
-	                  <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#down"></use>
+	                  <use xlink:href="/icons/utility-sprite/svg/symbols.svg#down"></use>
 	                </svg>
 	                <span class="slds-assistive-text">Show More</span>
 	              </button>
@@ -130,15 +131,18 @@
 	          </tr>
 	        </thead>
 	        <tbody>
-	          <tr class="slds-hint-parent">
-	            <td class="slds-size--1-of-4" data-label="Name">Adam Choi</td>
-	            <td class="slds-size--1-of-4" data-label="Company">Company One</td>
-	            <td class="slds-size--1-of-4" data-label="Title">Director of Operations</td>
-	            <td class="slds-size--1-of-4" data-label="Email">adam@company.com</td>
+	          <tr class="slds-hint-parent" ng-repaet="order in orders">
+	            <td class="slds-size--1-of-4" data-label="Number">{{order.orderNumber}}</td>
+	            <td class="slds-size--1-of-4" data-label="amount">{{order.totalamount}}</td>
+	            <td class="slds-size--1-of-4" data-label="status">{{order.status}}</td>
+	            <td class="slds-size--1-of-4" data-label="order date">{{order.lastvieweddate}}</td>
+	            <td class="slds-size--1-of-4" data-label="order date">
+	            		<span class="slds-badge slds-theme--inverse" ng-repeat="orderItem in order.orderItem">{{orderItem.name}}</span>
+	            </td>
 	            <td>
 	              <button class="slds-button slds-button--icon-border-filled slds-button--icon-x-small">
 	                <svg aria-hidden="true" class="slds-button__icon slds-button__icon--hint slds-button__icon--small">
-	                  <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#down"></use>
+	                  <use xlink:href="/icons/utility-sprite/svg/symbols.svg#down"></use>
 	                </svg>
 	                <span class="slds-assistive-text">Show More</span>
 	              </button>
