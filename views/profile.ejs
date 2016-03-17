@@ -8,62 +8,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
 
-    <title>Node/Angular Order Management App</title>
+    <title>Order Management App</title>
 
     <!-- SCROLLS -->
     <link rel="stylesheet" href="/styles/salesforce-lightning-design-system.min.css" >
-    <style>
-        @media only screen and (max-width: 800px) {
-                
-                /* Force table to not be like tables anymore */
-            	#no-more-tables table, 
-            	#no-more-tables thead, 
-            	#no-more-tables tbody, 
-            	#no-more-tables th, 
-            	#no-more-tables td, 
-            	#no-more-tables tr { 
-            		display: block; 
-            	}
-             
-            	/* Hide table headers (but not display: none;, for accessibility) */
-            	#no-more-tables thead tr { 
-            		position: absolute;
-            		top: -9999px;
-            		left: -9999px;
-            	}
-             
-            	#no-more-tables tr { border: 1px solid #ccc; }
-             
-            	#no-more-tables td { 
-            		/* Behave  like a "row" */
-            		border: none;
-            		border-bottom: 1px solid #eee; 
-            		position: relative;
-            		padding-left: 50%; 
-            		white-space: normal;
-            		text-align:left;
-            	}
-             
-            	#no-more-tables td:before { 
-            		/* Now like a table header */
-            		position: absolute;
-            		/* Top/left values mimic padding */
-            		top: 6px;
-            		left: 6px;
-            		width: 45%; 
-            		padding-right: 10px; 
-            		white-space: nowrap;
-            		text-align:left;
-            		font-weight: bold;
-            	}
-             
-            	/*
-            	Label the data
-            	*/
-            	#no-more-tables td:before { content: attr(data-title); }
-            }
-    </style>
-
     <!-- SPELLS -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script><!-- load angular -->
@@ -78,12 +26,63 @@
 	  <div class="slds-media">
 	    <div class="slds-media__figure">
 	      <svg aria-hidden="true" class="slds-icon slds-icon--large slds-icon-standard-opportunity">
-	        <use xlink:href="/assets/icons/standard-sprite/svg/symbols.svg#opportunity"></use>
+	        <use xlink:href="/icons/standard-sprite/svg/symbols.svg#opportunity"></use>
 	      </svg>
 	    </div>
 	    <div class="slds-media__body">
-	      <p class="slds-page-header__title slds-truncate slds-align-middle" title="Rohde Corp - 80,000 Widgets">Rohde Corp - 80,000 Widgets</p>
-	      <p class="slds-text-body--small slds-page-header__info"><%= user.name %></p>
+	      <p class="slds-page-header__title slds-truncate slds-align-middle" title="Order Management">Order Management</p>
+	      <p class="slds-text-body--small slds-page-header__info">Custom Application</p>
+	    </div>
+	    <div class="slds-dropdown-trigger slds-dropdown-trigger--click slds-is-open" aria-expanded="true">
+	    <button class="slds-button slds-button--icon-border-filled" aria-haspopup="true">
+	      <svg aria-hidden="true" class="slds-button__icon slds-button__icon--hint">
+	        <use xlink:href="/icons/utility-sprite/svg/symbols.svg#down"></use>
+	      </svg>
+	      <span class="slds-assistive-text">Show More</span>
+	    </button>
+	    <div class="slds-dropdown slds-dropdown--left slds-text-heading--label">
+	      <ul class="dropdown__list" role="menu">
+	        <li class="slds-dropdown__item">
+	          <a href="#void" role="menuitem">
+	            <p class="slds-truncate">
+	              <svg aria-hidden="true" class="slds-icon slds-icon--small slds-icon-standard-account slds-m-right--small">
+	                <use xlink:href="/assets/icons/standard-sprite/svg/symbols.svg#account"></use>
+	              </svg>Accounts</p>
+	          </a>
+	        </li>
+	        <li class="slds-dropdown__item">
+	          <a href="#void" role="menuitem">
+	            <p class="slds-truncate">
+	              <svg aria-hidden="true" class="slds-icon slds-icon--small slds-icon-standard-approval slds-m-right--small">
+	                <use xlink:href="/assets/icons/standard-sprite/svg/symbols.svg#approval"></use>
+	              </svg>Approvals</p>
+	          </a>
+	        </li>
+	        <li class="slds-dropdown__item">
+	          <a href="#void" role="menuitem">
+	            <p class="slds-truncate">
+	              <svg aria-hidden="true" class="slds-icon slds-icon--small slds-icon-standard-lead slds-m-right--small">
+	                <use xlink:href="/assets/icons/standard-sprite/svg/symbols.svg#lead"></use>
+	              </svg>Lead</p>
+	          </a>
+	        </li>
+	        <li class="slds-dropdown__item">
+	          <a href="#void" role="menuitem">
+	            <p class="slds-truncate">
+	              <svg aria-hidden="true" class="slds-icon slds-icon--small slds-icon-standard-opportunity slds-m-right--small">
+	                <use xlink:href="/assets/icons/standard-sprite/svg/symbols.svg#opportunity"></use>
+	              </svg>Opportunities</p>
+	          </a>
+	        </li>
+	        <li class="slds-dropdown__item">
+	          <a href="#void" role="menuitem">
+	            <p class="slds-truncate">
+	              <svg aria-hidden="true" class="slds-icon slds-icon--small slds-icon-standard-product slds-m-right--small">
+	                <use xlink:href="/assets/icons/standard-sprite/svg/symbols.svg#product"></use>
+	              </svg>Products</p>
+	          </a>
+	        </li>
+	      </ul>
 	    </div>
 	  </div>
 	</div>
