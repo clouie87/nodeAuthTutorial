@@ -22,7 +22,12 @@ module.exports = function(app, passport) {
         });
         console.log(req.user);
     });
-
+    app.get('/neworder', isLoggedIn, function(req, res) {
+        res.render('neworder.ejs', {
+            user : req.user // get the user out of session and pass to template
+        });
+        console.log(req.user);
+    });
     // =====================================
     // FACEBOOK ROUTES =====================
     // =====================================
