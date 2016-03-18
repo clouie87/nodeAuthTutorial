@@ -84,7 +84,41 @@ module.exports = function(app, passport) {
         }
     });
 };
-
+app.get('/api/pricebook', function(req, res) {
+        
+        if(req.hasOwnProperty('user')){
+        
+            var loginUser = req.user;
+            var results = [];
+            console.log(loginUser);
+            // Get a Postgres client from the connection pool
+            pg.connect(conString, function(err, client, done) {
+                // Handle connection errors
+                if(err) {
+                  done();
+                  console.log(err);
+                  return res.status(500).json({ success: false, data: err});
+                }
+        
+                // SQL Query > Select Data
+                var query = client.query("SELECT * FROM salesforce.pricebook");
+                // Stream results back one row at a time
+                query.on('row', function(row) {
+                    results.push(row);
+                });
+        
+                // After all data is returned, close connection and return results
+                query.on('end', function() {
+                    done();
+                    return res.json(results);
+                });
+        
+            });
+        }else{
+            return res.status(500).json({ success: false});
+        }
+    });
+};
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {
 
