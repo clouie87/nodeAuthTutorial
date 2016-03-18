@@ -83,8 +83,7 @@ module.exports = function(app, passport) {
             return res.status(500).json({ success: false});
         }
     });
-};
-app.get('/api/pricebook', function(req, res) {
+    app.get('/api/pricebook', function(req, res) {
         
         if(req.hasOwnProperty('user')){
         
@@ -119,6 +118,7 @@ app.get('/api/pricebook', function(req, res) {
         }
     });
 };
+
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {
 
