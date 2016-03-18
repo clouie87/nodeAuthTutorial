@@ -1,5 +1,7 @@
 var pg = require('pg');
 var conString = process.env.DATABASE_URL;
+var client = new pg.Client(conString);
+client.connect();
 //all the routes for our application
 module.exports = function(app, passport) {
 
@@ -56,30 +58,20 @@ module.exports = function(app, passport) {
             var loginUser = req.user;
             var results = [];
             console.log(loginUser);
-            // Get a Postgres client from the connection pool
-            pg.connect(conString, function(err, client, done) {
-                // Handle connection errors
-                if(err) {
-                  done();
-                  console.log(err);
-                  return res.status(500).json({ success: false, data: err});
-                }
-        
-                // SQL Query > Select Data
-                var query = client.query("SELECT * FROM salesforce.order INNER JOIN salesforce.orderitem ON salesforce.order.sfid = salesforce.orderitem.orderid INNER JOIN salesforce.pricebookentry ON salesforce.orderitem.pricebookentryid = salesforce.pricebookentry.sfid WHERE accountid ='"+loginUser.accountid+"';");
-                // Stream results back one row at a time
-                query.on('row', function(row) {
-                    results.push(row);
-                });
-        
-                // After all data is returned, close connection and return results
-                query.on('end', function() {
-                   done();
-                    return res.json(results);
-                });
-        
+            // SQL Query > Select Data
+            var query = client.query("SELECT * FROM salesforce.order INNER JOIN salesforce.orderitem ON salesforce.order.sfid = salesforce.orderitem.orderid INNER JOIN salesforce.pricebookentry ON salesforce.orderitem.pricebookentryid = salesforce.pricebookentry.sfid WHERE accountid ='"+loginUser.accountid+"';");
+            // Stream results back one row at a time
+            query.on('row', function(row) {
+                results.push(row);
             });
-            
+    
+            // After all data is returned, close connection and return results
+            query.on('end', function() {
+                client.end();
+                return res.json(results);
+            });
+        
+
         }else{
             return res.status(500).json({ success: false});
         }
@@ -91,15 +83,6 @@ module.exports = function(app, passport) {
             var loginUser = req.user;
             var results = [];
             console.log(loginUser);
-            // Get a Postgres client from the connection pool
-            pg.connect(conString, function(err, client, done) {
-                // Handle connection errors
-                if(err) {
-                  done();
-                  console.log(err);
-                  return res.status(500).json({ success: false, data: err});
-                }
-        
                 // SQL Query > Select Data
                 var query = client.query("SELECT * FROM salesforce.Pricebook2");
                 // Stream results back one row at a time
@@ -109,11 +92,10 @@ module.exports = function(app, passport) {
         
                 // After all data is returned, close connection and return results
                 query.on('end', function() {
-                   done();
+                    client.end();
                     return res.json(results);
                 });
         
-            });
         }else{
             return res.status(500).json({ success: false});
         }
