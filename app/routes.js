@@ -60,7 +60,7 @@ module.exports = function(app, passport) {
             pg.connect(conString, function(err, client, done) {
                 // Handle connection errors
                 if(err) {
-                  done();
+                  client.done();
                   console.log(err);
                   return res.status(500).json({ success: false, data: err});
                 }
@@ -74,7 +74,7 @@ module.exports = function(app, passport) {
         
                 // After all data is returned, close connection and return results
                 query.on('end', function() {
-                    done();
+                    client.done();
                     return res.json(results);
                 });
         
@@ -95,7 +95,7 @@ module.exports = function(app, passport) {
             pg.connect(conString, function(err, client, done) {
                 // Handle connection errors
                 if(err) {
-                  done();
+                  client.done();
                   console.log(err);
                   return res.status(500).json({ success: false, data: err});
                 }
@@ -109,7 +109,7 @@ module.exports = function(app, passport) {
         
                 // After all data is returned, close connection and return results
                 query.on('end', function() {
-                    done();
+                   client.done();
                     return res.json(results);
                 });
         
