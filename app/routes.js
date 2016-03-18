@@ -75,10 +75,12 @@ module.exports = function(app, passport) {
                 // After all data is returned, close connection and return results
                 query.on('end', function() {
                     done();
+                    pg.end();
                     return res.json(results);
                 });
         
             });
+            
         }else{
             return res.status(500).json({ success: false});
         }
@@ -109,6 +111,7 @@ module.exports = function(app, passport) {
                 // After all data is returned, close connection and return results
                 query.on('end', function() {
                     done();
+                    pg.end();
                     return res.json(results);
                 });
         
