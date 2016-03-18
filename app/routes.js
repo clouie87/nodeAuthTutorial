@@ -57,7 +57,7 @@ module.exports = function(app, passport) {
             var results = [];
             console.log(loginUser);
             // Get a Postgres client from the connection pool
-            pg.connect(conString, function(err, client, done) {
+            pg.connect(conString, function(err, client) {
                 // Handle connection errors
                 if(err) {
                   client.done();
@@ -92,7 +92,7 @@ module.exports = function(app, passport) {
             var results = [];
             console.log(loginUser);
             // Get a Postgres client from the connection pool
-            pg.connect(conString, function(err, client, done) {
+            pg.connect(conString, function(err, client) {
                 // Handle connection errors
                 if(err) {
                   client.done();
