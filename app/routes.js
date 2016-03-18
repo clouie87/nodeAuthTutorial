@@ -57,10 +57,10 @@ module.exports = function(app, passport) {
             var results = [];
             console.log(loginUser);
             // Get a Postgres client from the connection pool
-            pg.connect(conString, function(err, client) {
+            pg.connect(conString, function(err, client, done) {
                 // Handle connection errors
                 if(err) {
-                  client.done();
+                  done();
                   console.log(err);
                   return res.status(500).json({ success: false, data: err});
                 }
@@ -74,7 +74,7 @@ module.exports = function(app, passport) {
         
                 // After all data is returned, close connection and return results
                 query.on('end', function() {
-                    client.done();
+                   done();
                     return res.json(results);
                 });
         
@@ -92,10 +92,10 @@ module.exports = function(app, passport) {
             var results = [];
             console.log(loginUser);
             // Get a Postgres client from the connection pool
-            pg.connect(conString, function(err, client) {
+            pg.connect(conString, function(err, client, done) {
                 // Handle connection errors
                 if(err) {
-                  client.done();
+                  done();
                   console.log(err);
                   return res.status(500).json({ success: false, data: err});
                 }
@@ -109,7 +109,7 @@ module.exports = function(app, passport) {
         
                 // After all data is returned, close connection and return results
                 query.on('end', function() {
-                   client.done();
+                   done();
                     return res.json(results);
                 });
         
