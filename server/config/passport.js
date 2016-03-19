@@ -10,7 +10,7 @@ var conString = process.env.DATABASE_URL;
 var client = new pg.Client(conString);
 
 // load up the user model
-var User            = require('../app/models/user');
+var User            = require('../model/user');
 
 // expose this function to our app using module.exports
 module.exports = function(passport) {
