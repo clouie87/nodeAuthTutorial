@@ -10,7 +10,8 @@ angular.module('orderController', [])
 		});
 	}]).directive('autoComplete', function() {
 		return {
-		    restrict: 'A',
+		    replace: true,	
+		    restrict: 'E',
 		    link: function(scope, elem, attr, ctrl) {
 		                // elem is a jquery lite object if jquery is not present,
 		                // but with jquery and jquery ui, it will be a full jquery object.
