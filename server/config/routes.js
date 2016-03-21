@@ -1,6 +1,3 @@
-var pg = require('pg');
-pg.default.partitionCount = 1;
-var conString = process.env.DATABASE_URL;
 //all the routes for our application
 module.exports = function(app, passport,db) {
 
