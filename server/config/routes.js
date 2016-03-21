@@ -63,7 +63,8 @@ module.exports = function(app, passport) {
 	        if(err){
 	            return res.status(500).json({ success: false,error : err});
 	        }
-	         return res.json(result);
+	        if(result.hasOwnProperty('rows'))
+	         return res.json(result.rows);
 	    });
 
         }else{
@@ -82,7 +83,8 @@ module.exports = function(app, passport) {
 	        if(err){
 	            return res.status(500).json({ success: false,error : err});
 	        }
-	         return res.json(result);
+	         if(result.hasOwnProperty('rows'))
+	        	 return res.json(result.rows);
 	    });
         }else{
             return res.status(500).json({ success: false});
