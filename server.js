@@ -12,8 +12,9 @@ var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var session      = require('express-session');
 
-
-require('./server/config/passport')(passport); // pass passport for configuration
+ //db
+var db=require('./server/config/database.js') // load our db
+require('./server/config/passport')(passport,db); // pass passport for configuration
 
 
 // set up our express application
@@ -31,7 +32,7 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 app.use(express.static("./public"));
 
 // routes ======================================================================
-require('./server/config/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
+require('./server/config/routes.js')(app, passport,db); // load our routes and pass in our app and fully configured passport
 
 
 // launch ======================================================================
