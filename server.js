@@ -13,8 +13,8 @@ var bodyParser   = require('body-parser');
 var session      = require('express-session');
 
  //db
-var db=require('./server/config/database.js') // load our db
-require('./server/config/passport')(passport,db); // pass passport for configuration
+require('./server/config/database.js') // load our db
+require('./server/config/passport')(passport,db,pgp); // pass passport for configuration
 
 
 // set up our express application
