@@ -18,6 +18,7 @@
     "passport-local": "~0.1.6",
     "passport-twitter": "~1.0.2",
     "pg": "^4.2.0",
-    "pg-promise" : "^3.3.0"
+    "pg-promise" : "3.3.0",
+    "bluebird": "3.x"
   }
 }
