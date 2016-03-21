@@ -18,7 +18,7 @@ User.findOne = function(email, callback){
 	//    if (err) {
 	//        return console.error('could not connect to postgres', err);
 	//    }
-	db.query("SELECT * from salesforce.contact where email="+email+"", true)
+	db.query("SELECT * from salesforce.contact where email='"+email+"'", true)
 	    .then(function (data) {
 	        console.log("DATA:", data); // print data;
 	        if (data.rows.length < 0){
@@ -52,7 +52,7 @@ User.findOne = function(email, callback){
 
 User.findBysfid = function(sfid, callback){
 	console.log("we are in findbyid");
-	db.query("SELECT * from salesforce.contact where sfid="+sfid+"", true)
+	db.query("SELECT * from salesforce.contact where sfid='"+sfid+"'", true)
 	    .then(function (data) {
 	        console.log("DATA:", data); // print data;
 	        if (data.rows.length > 0){
