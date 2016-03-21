@@ -3,17 +3,11 @@
 
 // load all the things we need
 var FacebookStrategy = require('passport-facebook').Strategy;
-var pg           = require('pg');
-
-var conString = process.env.DATABASE_URL;
-
-var client = new pg.Client(conString);
-
 // load up the user model
-var User            = require('../model/user');
+var User            = require('../model/user')(db);
 
 // expose this function to our app using module.exports
-module.exports = function(passport) {
+module.exports = function(passport,db) {
 
     // =========================================================================
     // passport session setup ==================================================
