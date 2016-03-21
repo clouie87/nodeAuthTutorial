@@ -57,7 +57,7 @@ module.exports = function(app, passport) {
             var results = [];
             console.log(loginUser);
 			pg.connect(conString, function(err, client) {
-				if (err) throw return res.json(err);
+				if (err) return res.json(err);
 					console.log('Connected to postgres! Getting schemas...');
 
 				// SQL Query > Select Data
@@ -87,9 +87,8 @@ module.exports = function(app, passport) {
             var loginUser = req.user;
             var results = [];
 			pg.connect(conString, function(err, client) {
-				if (err) throw return res.json(err);
-					console.log('Connected to postgres! Getting schemas...');
-
+				if (err) return res.json(err);
+			console.log('Connected to postgres! Getting schemas...');
 				var query = client.query("SELECT * FROM salesforce.Pricebook2");
                 // Stream results back one row at a time
                 query.on('row', function(row) {
