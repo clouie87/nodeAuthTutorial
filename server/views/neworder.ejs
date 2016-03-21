@@ -1,0 +1,212 @@
+<!-- index.html -->
+<!doctype html>
+
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html ng-app="orderApp">
+<head>
+    <!-- META -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+
+    <title>Order Management App</title>
+
+    <!-- SCROLLS -->
+    <link rel="stylesheet" href="/styles/salesforce-lightning-design-system.min.css" >
+    <!-- SPELLS -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script><!-- load angular -->
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="/js/controllers/neworder.js"></script> <!-- load up our controller -->
+	<script src="/js/services/order.js"></script> <!-- load our  service -->
+	<script src="/js/core.js"></script> <!-- load our main application -->
+</head>
+<!-- SET THE CONTROLLER AND GET ALL TODOS -->
+<body ng-controller="neworderController">
+{{pricebooks}}
+    <div class="slds-page-header" role="banner">
+	  <div class="slds-media">
+	    <!--<div class="slds-media__figure">
+	      <svg aria-hidden="true" class="slds-icon slds-icon--large slds-icon-standard-opportunity">
+	        <use xlink:href="/icons/standard-sprite/svg/symbols.svg#opportunity"></use>
+	      </svg>
+	    </div>-->
+	    <div class="slds-media__body">
+	      <p class="slds-page-header__title slds-truncate slds-align-middle" title="Order Management">Order Management</p>
+	      <p class="slds-text-body--small slds-page-header__info">Custom Application</p>
+	    </div>
+	    <div class="slds-dropdown-trigger slds-dropdown-trigger--click slds-is-open" aria-expanded="true">
+	    <button class="slds-button slds-button--icon-border-filled" aria-haspopup="true">
+	      <svg aria-hidden="true" class="slds-button__icon slds-button__icon--hint">
+	        <use xlink:href="icons/utility-sprite/svg/symbols.svg#settings"></use>
+	      </svg>
+	      <span class="slds-assistive-text">Settings</span>
+	    </button>
+	    <div class="slds-dropdown slds-dropdown--right slds-text-heading--label" style="display:none;">
+	      <ul class="dropdown__list" role="menu">
+	        <li class="slds-dropdown__item">
+	          <a href="#void" role="menuitem">
+	            <p class="slds-truncate">
+	              <svg aria-hidden="true" class="slds-icon slds-icon--small slds-icon-standard-account slds-m-right--small">
+	                <use xlink:href="/icons/standard-sprite/svg/symbols.svg#account"></use>
+	              </svg>Accounts</p>
+	          </a>
+	        </li>
+	        <li class="slds-dropdown__item">
+	          <a href="#void" role="menuitem">
+	            <p class="slds-truncate">
+	              <svg aria-hidden="true" class="slds-icon slds-icon--small slds-icon-standard-approval slds-m-right--small">
+	                <use xlink:href="/icons/standard-sprite/svg/symbols.svg#approval"></use>
+	              </svg>Approvals</p>
+	          </a>
+	        </li>
+	        <li class="slds-dropdown__item">
+	          <a href="#void" role="menuitem">
+	            <p class="slds-truncate">
+	              <svg aria-hidden="true" class="slds-icon slds-icon--small slds-icon-standard-lead slds-m-right--small">
+	                <use xlink:href="/icons/standard-sprite/svg/symbols.svg#lead"></use>
+	              </svg>Lead</p>
+	          </a>
+	        </li>
+	        <li class="slds-dropdown__item">
+	          <a href="#void" role="menuitem">
+	            <p class="slds-truncate">
+	              <svg aria-hidden="true" class="slds-icon slds-icon--small slds-icon-standard-opportunity slds-m-right--small">
+	                <use xlink:href="/icons/standard-sprite/svg/symbols.svg#opportunity"></use>
+	              </svg>Opportunities</p>
+	          </a>
+	        </li>
+	        <li class="slds-dropdown__item">
+	          <a href="/logout" role="menuitem">
+	            <p class="slds-truncate">
+	              <svg aria-hidden="true" class="slds-icon slds-icon--small slds-icon-standard-product slds-m-right--small">
+	                <use xlink:href="/icons/standard-sprite/svg/symbols.svg#product"></use>
+	              </svg>Logout</p>
+	          </a>
+	        </li>
+	      </ul>
+	    </div>
+	  </div>
+	</div>
+	</div>
+	<div class="slds-card">
+	    <div class="slds-card__header slds-grid grid--flex-spread">
+	      <h2 class="slds-text-heading--small slds-truncate">Price Book</h2>
+	    </div>
+	    <div class="slds-card__body slds-p-horizontal--small">
+	      	<div class="slds-lookup" data-select="multi" data-scope="single" data-typeahead="true">
+		    <div class="slds-form-element">
+		      <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon--right">
+		        <svg aria-hidden="true" class="slds-input__icon slds-icon-text-default">
+		          <use xlink:href="/icons/utility-sprite/svg/symbols.svg#search"></use>
+		        </svg>
+		          <input type="text" auto-complete ui-items="pricebooks" ng-model="pricebook" class="slds-input"/>
+		      </div>
+		    </div>
+		    <div class="slds-lookup__menu" role="listbox">
+		      <div class="slds-lookup__item">
+		        <button class="slds-button">
+		          <svg aria-hidden="true" class="slds-icon slds-icon-text-default slds-icon--small">
+		            <use xlink:href="/icons/utility-sprite/svg/symbols.svg#search"></use>
+		          </svg>&quot;{{pricebook}}&quot; in Price Book</button>
+		      </div>
+		      <ul class="slds-lookup__list" role="presentation" id="lookup-menu">
+		        
+		      </ul>
+		    </div>
+		  </div>
+	    </div>
+	  </div>
+	  <div>
+	      <div class="slds-modal--large">
+	        <div class="slds-modal__content">
+	            <table class="slds-table slds-table--bordered slds-no-row-hover" role="listbox">
+	              <thead>
+	                <tr>
+	                  <th colspan="4" scope="col">
+	                    <div class="slds-float--right">
+	                      <button class="slds-button slds-button--icon-bare slds-button--icon-x-small">
+	                        <svg aria-hidden="true" class="slds-button__icon">
+	                          <use xlink:href="/icons/utility-sprite/svg/symbols.svg#filterList"></use>
+	                        </svg>
+	                        <span class="slds-assistive-text">Filter List</span>
+	                      </button>
+	                      <button class="slds-button slds-button--icon-bare slds-button--icon-x-small">
+	                        <svg aria-hidden="true" class="slds-button__icon">
+	                          <use xlink:href="/icons/utility-sprite/svg/symbols.svg#sort"></use>
+	                        </svg>
+	                        <span class="slds-assistive-text">Sort</span>
+	                      </button>
+	                    </div>5 Results, sorted by relevancy</th>
+	                </tr>
+	                <tr>
+	                  <th scope="col">Account Name</th>
+	                  <th scope="col">Location</th>
+	                  <th scope="col">Secondary Column</th>
+	                  <th scope="col">Tertiary Column</th>
+	                </tr>
+	              </thead>
+	              <tbody>
+	                <tr>
+	                  <th scope="row">
+	                    <a id="s01" href="#" role="option">
+	                      <svg aria-hidden="true" class="slds-icon slds-icon-standard-account slds-icon--small slds-m-right--x-small">
+	                        <use xlink:href="/icons/standard-sprite/svg/symbols.svg#account"></use>
+	                      </svg>Acme Landscape</a>
+	                  </th>
+	                  <td>Seattle, WA</td>
+	                  <td>Secondary Field</td>
+	                  <td>Tertiary Field</td>
+	                </tr>
+	                <tr>
+	                  <th scope="row">
+	                    <a id="s02" href="#" role="option">
+	                      <svg aria-hidden="true" class="slds-icon slds-icon-standard-account slds-icon--small slds-m-right--x-small">
+	                        <use xlink:href="/icons/standard-sprite/svg/symbols.svg#account"></use>
+	                      </svg>ACME Construction</a>
+	                  </th>
+	                  <td>San Francisco, CA</td>
+	                  <td>Secondary Field</td>
+	                  <td>Tertiary Field</td>
+	                </tr>
+	                <tr>
+	                  <th scope="row">
+	                    <a id="s03" href="#" role="option">
+	                      <svg aria-hidden="true" class="slds-icon slds-icon-standard-account slds-icon--small slds-m-right--x-small">
+	                        <use xlink:href="/icons/standard-sprite/svg/symbols.svg#account"></use>
+	                      </svg>Action Sports</a>
+	                  </th>
+	                  <td>Madison, WI</td>
+	                  <td>Secondary Field</td>
+	                  <td>Tertiary Field</td>
+	                </tr>
+	                <tr>
+	                  <th scope="row">
+	                    <a id="s04" href="#" role="option">
+	                      <svg aria-hidden="true" class="slds-icon slds-icon-standard-account slds-icon--small slds-m-right--x-small">
+	                        <use xlink:href="/icons/standard-sprite/svg/symbols.svg#account"></use>
+	                      </svg>Moderno Bistro</a>
+	                  </th>
+	                  <td>Acton, OH</td>
+	                  <td>Secondary Field</td>
+	                  <td>Tertiary Field</td>
+	                </tr>
+	                <tr>
+	                  <th scope="row">
+	                    <a id="s05" href="#" role="option">
+	                      <svg aria-hidden="true" class="slds-icon slds-icon-standard-account slds-icon--small slds-m-right--x-small">
+	                        <use xlink:href="/icons/standard-sprite/svg/symbols.svg#account"></use>
+	                      </svg>Cozy Kitchen</a>
+	                  </th>
+	                  <td>Acton, CA</td>
+	                  <td>Secondary Field</td>
+	                  <td>Tertiary Field</td>
+	                </tr>
+	              </tbody>
+	            </table>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+</body>
+</html>

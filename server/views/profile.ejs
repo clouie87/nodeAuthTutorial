@@ -1,0 +1,157 @@
+<!-- index.html -->
+<!doctype html>
+
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html ng-app="orderApp">
+<head>
+    <!-- META -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+
+    <title>Order Management App</title>
+
+    <!-- SCROLLS -->
+    <link rel="stylesheet" href="/styles/salesforce-lightning-design-system.min.css" >
+    <!-- SPELLS -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script><!-- load angular -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="/js/controllers/main.js"></script> <!-- load up our controller -->
+	<script src="/js/services/order.js"></script> <!-- load our  service -->
+	<script src="/js/core.js"></script> <!-- load our main application -->
+</head>
+<!-- SET THE CONTROLLER AND GET ALL TODOS -->
+<body ng-controller="mainController">
+    <div class="slds-page-header" role="banner">
+	  <div class="slds-media">
+	    <!--<div class="slds-media__figure">
+	      <svg aria-hidden="true" class="slds-icon slds-icon--large slds-icon-standard-opportunity">
+	        <use xlink:href="/icons/standard-sprite/svg/symbols.svg#opportunity"></use>
+	      </svg>
+	    </div>-->
+	    <div class="slds-media__body">
+	      <p class="slds-page-header__title slds-truncate slds-align-middle" title="Order Management">Order Management</p>
+	      <p class="slds-text-body--small slds-page-header__info">Custom Application</p>
+	    </div>
+	    <div class="slds-dropdown-trigger slds-dropdown-trigger--click slds-is-open" aria-expanded="true">
+	    <button class="slds-button slds-button--icon-border-filled" aria-haspopup="true">
+	      <svg aria-hidden="true" class="slds-button__icon slds-button__icon--hint">
+	        <use xlink:href="icons/utility-sprite/svg/symbols.svg#settings"></use>
+	      </svg>
+	      <span class="slds-assistive-text">Settings</span>
+	    </button>
+	    <div class="slds-dropdown slds-dropdown--right slds-text-heading--label" style="display:none;">
+	      <ul class="dropdown__list" role="menu">
+	        <li class="slds-dropdown__item">
+	          <a href="#void" role="menuitem">
+	            <p class="slds-truncate">
+	              <svg aria-hidden="true" class="slds-icon slds-icon--small slds-icon-standard-account slds-m-right--small">
+	                <use xlink:href="/assets/icons/standard-sprite/svg/symbols.svg#account"></use>
+	              </svg>Accounts</p>
+	          </a>
+	        </li>
+	        <li class="slds-dropdown__item">
+	          <a href="#void" role="menuitem">
+	            <p class="slds-truncate">
+	              <svg aria-hidden="true" class="slds-icon slds-icon--small slds-icon-standard-approval slds-m-right--small">
+	                <use xlink:href="/assets/icons/standard-sprite/svg/symbols.svg#approval"></use>
+	              </svg>Approvals</p>
+	          </a>
+	        </li>
+	        <li class="slds-dropdown__item">
+	          <a href="#void" role="menuitem">
+	            <p class="slds-truncate">
+	              <svg aria-hidden="true" class="slds-icon slds-icon--small slds-icon-standard-lead slds-m-right--small">
+	                <use xlink:href="/assets/icons/standard-sprite/svg/symbols.svg#lead"></use>
+	              </svg>Lead</p>
+	          </a>
+	        </li>
+	        <li class="slds-dropdown__item">
+	          <a href="#void" role="menuitem">
+	            <p class="slds-truncate">
+	              <svg aria-hidden="true" class="slds-icon slds-icon--small slds-icon-standard-opportunity slds-m-right--small">
+	                <use xlink:href="/assets/icons/standard-sprite/svg/symbols.svg#opportunity"></use>
+	              </svg>Opportunities</p>
+	          </a>
+	        </li>
+	        <li class="slds-dropdown__item">
+	          <a href="/logout" role="menuitem">
+	            <p class="slds-truncate">
+	              <svg aria-hidden="true" class="slds-icon slds-icon--small slds-icon-standard-product slds-m-right--small">
+	                <use xlink:href="icons/standard-sprite/svg/symbols.svg#product"></use>
+	              </svg>Logout</p>
+	          </a>
+	        </li>
+	      </ul>
+	    </div>
+	  </div>
+	</div>
+	</div>
+	 <div class="slds-card">
+	     	<div class="slds-page-header" role="banner" style="border:none;">
+		  <div class="slds-grid">
+		    <div class="slds-col slds-has-flexi-truncate">
+		      <p class="slds-text-heading--label">ORDERS</p>
+		      <div class="slds-grid">
+		        <div class="slds-grid slds-type-focus slds-no-space">
+		          <h1 class="slds-page-header__title slds-truncate" title="My Orders">My Orders</h1>
+		        </div>
+		   </div>
+		    </div>
+		    <div class="slds-col slds-no-flex slds-align-bottom">
+		      <div class="slds-grid">
+		        <div class="slds-button-group" role="group">
+		          <a href="/neworder" class="slds-button slds-button--neutral">New Order</a>
+		        </div>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	    <div class="slds-card__body">
+	      <table class="slds-table slds-table--bordered slds-max-medium-table--stacked-horizontal slds-no-row-hover">
+	        <thead>
+	          <tr>
+	            <th class="slds-text-heading--label slds-size--1-of-4" scope="col">Order Number</th>
+	            <th class="slds-text-heading--label slds-size--1-of-4" scope="col">Total Amount</th>
+	            <th class="slds-text-heading--label slds-size--1-of-4" scope="col">Status</th>
+	            <th class="slds-text-heading--label slds-size--1-of-4" scope="col">Order Date</th>
+	            <th class="slds-text-heading--label slds-size--1-of-4" scope="col">Items</th>
+	            <th class="row-action" scope="col">
+	              <button class="slds-button slds-button--icon-border-filled slds-button--icon-x-small">
+	                <svg aria-hidden="true" class="slds-button__icon slds-button__icon--hint slds-button__icon--small">
+	                  <use xlink:href="/icons/utility-sprite/svg/symbols.svg#down"></use>
+	                </svg>
+	                <span class="slds-assistive-text">Show More</span>
+	              </button>
+	            </th>
+	          </tr>
+	        </thead>
+	        <tbody>
+	          <tr class="slds-hint-parent" ng-repeat="(orderNumber, order) in orders">
+	            <td class="slds-size--1-of-4" >{{order.orderNumber}}</td>
+	            <td class="slds-size--1-of-4" >{{order.totalamount}}</td>
+	            <td class="slds-size--1-of-4" >{{order.status}}</td>
+	            <td class="slds-size--1-of-4" >{{order.lastvieweddate}}</td>
+	            <td class="slds-size--1-of-4" >
+	            		<span class="slds-badge slds-theme--inverse" ng-repeat="orderItem in order.orderItem">{{orderItem.name}}</span>
+	            </td>
+	            <td>
+	              <button class="slds-button slds-button--icon-border-filled slds-button--icon-x-small">
+	                <svg aria-hidden="true" class="slds-button__icon slds-button__icon--hint slds-button__icon--small">
+	                  <use xlink:href="/icons/utility-sprite/svg/symbols.svg#down"></use>
+	                </svg>
+	                <span class="slds-assistive-text">Show More</span>
+	              </button>
+	            </td>
+	          </tr>
+	        </tbody>
+	      </table>
+	    </div>
+	    <div class="slds-card__footer">
+	      <a href="#">View All
+	        <span class="slds-assistive-text">entity type</span>
+	      </a>
+	    </div>
+	  </div>
+</body>
+</html>

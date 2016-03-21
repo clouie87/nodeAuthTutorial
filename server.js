@@ -11,51 +11,29 @@ var morgan       = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var session      = require('express-session');
-var pg           = require('pg');
 
-var conString = "postgres://carolinelouie@localhost/auth";
+var pgp = require('./server/config/pgpromise.js');
+var db= require('./server/config/database.js') // load our db
+require('./server/config/passport')(passport,db,pgp); // pass passport for configuration
 
-var client = new pg.Client(conString);
-//client.connect(function(err) {
-//    if(err) {
-//        return console.error('could not connect to postgres', err);
-//    }
-//    client.query('SELECT NOW() AS "theTime"', function(err, result) {
-//        if(err) {
-//            return console.error('error running query', err);
-//        }
-//        console.log(result.rows[0].theTime);
-//        //output: Tue Jan 15 2013 19:12:47 GMT-600 (CST)
-//        //client.end();
-//
-//
-//    });
-//});
-
-
-//var configDB = require('./config/database.js');
-
-
-// configuration ===============================================================
-//mongoose.connect(configDB.url); // connect to our database
-
-require('./config/passport')(passport); // pass passport for configuration
 
 // set up our express application
 app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser()); // get information from html forms
-
+app.set('views', './server/views');
 app.set('view engine', 'ejs'); // set up ejs for templating
 
 // required for passport
-app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
+app.use(session({ secret: 'ramkosalramkosal' })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
+app.use(express.static("./public"));
 
 // routes ======================================================================
-require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
+require('./server/config/routes.js')(app, passport,db,pgp); // load our routes and pass in our app and fully configured passport
+
 
 // launch ======================================================================
 app.listen(port);
