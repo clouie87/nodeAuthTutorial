@@ -57,7 +57,7 @@ User.findBysfid = function(sfid, callback){
 	db.query("SELECT * from salesforce.contact where sfid='"+sfid+"'", true)
 	    .then(function (data) {
 	        console.log("DATA:", data); // print data;
-	        if (data.rows.length > 0){
+	        if (data.length > 0){
 		    console.log(data[0] + ' is found!');
 		    var user = new User();
 		    user.email= data[0]['email'];
