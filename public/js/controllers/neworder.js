@@ -8,15 +8,15 @@ angular.module('orderController', [])
 		.success(function(data) {
 			$scope.pricebooks = data;
 		});
-	}]).directive('autoComplete', function(Pricebook) {
+	}]).directive('autoComplete', function() {
 		return {
 		    restrict: 'A',
 		    link: function(scope, elem, attr, ctrl) {
 		                // elem is a jquery lite object if jquery is not present,
 		                // but with jquery and jquery ui, it will be a full jquery object.
-		        debugger
+		        debugger;
 		        elem.autocomplete({
-		            source: Pricebook.get() //from your service
+		            source: scope[attr.uiItems], //from your service
 		            minLength: 2
 		        }).data("autocomplete")._renderItem = function(ul, item) {
 		                return $("<li class='slds-lookup__item'>")
