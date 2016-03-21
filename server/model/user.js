@@ -63,7 +63,7 @@ User.findBysfid = function(sfid, callback){
 		    user.email= data[0]['email'];
 		    user.name = data[0]['name'];
 		    user.sfid = data[0]['sfid'];
-		    user.accountid =  rows[0]['accountid'];
+		    user.accountid =  data[0]['accountid'];
 		    console.log(user.email);
 		    return callback(null, user);
 		}
