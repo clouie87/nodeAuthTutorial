@@ -12,8 +12,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var session      = require('express-session');
 
- //db
-require('./server/config/database.js') // load our db
+var pgp = require('./server/config/pgpromise.js');
+var db= require('./server/config/database.js') // load our db
 require('./server/config/passport')(passport,db,pgp); // pass passport for configuration
 
 
