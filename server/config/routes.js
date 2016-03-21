@@ -1,7 +1,7 @@
 var pg = require('pg');
 var conString = process.env.DATABASE_URL;
 //all the routes for our application
-module.exports = function(app, passport) {
+module.exports = function(app, passport,db) {
 
     // =====================================
     // HOME PAGE (with login links) ========
@@ -56,25 +56,28 @@ module.exports = function(app, passport) {
             var loginUser = req.user;
             var results = [];
             console.log(loginUser);
-			pg.connect(conString, function(err, client) {
-				if (err) return res.json(err);
-					console.log('Connected to postgres! Getting schemas...');
+            db.query("SELECT * FROM salesforce.order INNER JOIN salesforce.orderitem ON salesforce.order.sfid = salesforce.orderitem.orderid INNER JOIN salesforce.pricebookentry ON salesforce.orderitem.pricebookentryid = salesforce.pricebookentry.sfid WHERE accountid ='"+loginUser.accountid+"';", true)
+	    .then(function (data) {
+	        console.log("DATA:", data); // print data;
+	        return res.json(data);
+	    })
+	    .catch(function (err) {
+	        console.log("ERROR:", error); // print the error;
+	        return res.status(500).json({ success: false,error : err});
+	    })
+	    .finally(function () {
+	        // If we do not close the connection pool when exiting the application,
+	        // it may take 30 seconds (poolIdleTimeout) before the process terminates,
+	        // waiting for the connection to expire in the pool.
+	
+	        // But if you normally just kill the process, then it doesn't matter.
+	
+	        pgp.end(); // for immediate app exit, closing the connection pool.
+	
+	        // See also:
+	        // https://github.com/vitaly-t/pg-promise#library-de-initialization
+	    });
 
-				// SQL Query > Select Data
-				var query = client.query("SELECT * FROM salesforce.order INNER JOIN salesforce.orderitem ON salesforce.order.sfid = salesforce.orderitem.orderid INNER JOIN salesforce.pricebookentry ON salesforce.orderitem.pricebookentryid = salesforce.pricebookentry.sfid WHERE accountid ='"+loginUser.accountid+"';");
-				// Stream results back one row at a time
-				query.on('row', function(row) {
-					results.push(row);
-				});
-		
-				// After all data is returned, close connection and return results
-				query.on('end', function() {
-					client.end();
-					return res.json(results);
-				});
-			
-			});
-            
 
         }else{
             return res.status(500).json({ success: false});
@@ -86,22 +89,27 @@ module.exports = function(app, passport) {
         
             var loginUser = req.user;
             var results = [];
-			pg.connect(conString, function(err, client) {
-				if (err) return res.json(err);
-			console.log('Connected to postgres! Getting schemas...');
-				var query = client.query("SELECT * FROM salesforce.Pricebook2");
-                // Stream results back one row at a time
-                query.on('row', function(row) {
-                    results.push(row);
-                });
-        
-                // After all data is returned, close connection and return results
-                query.on('end', function() {
-                    client.end();
-                    return res.json(results);
-                });
-			});
-            
+            db.query("SELECT * FROM salesforce.Pricebook2", true)
+	    .then(function (data) {
+	        console.log("DATA:", data); // print data;
+	        return res.json(data);
+	    })
+	    .catch(function (err) {
+	        console.log("ERROR:", error); // print the error;
+	        return res.status(500).json({ success: false,error : err});
+	    })
+	    .finally(function () {
+	        // If we do not close the connection pool when exiting the application,
+	        // it may take 30 seconds (poolIdleTimeout) before the process terminates,
+	        // waiting for the connection to expire in the pool.
+	
+	        // But if you normally just kill the process, then it doesn't matter.
+	
+	        pgp.end(); // for immediate app exit, closing the connection pool.
+	
+	        // See also:
+	        // https://github.com/vitaly-t/pg-promise#library-de-initialization
+	    });
         }else{
             return res.status(500).json({ success: false});
         }
