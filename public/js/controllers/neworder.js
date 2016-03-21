@@ -1,4 +1,4 @@
-angular.module('orderController', [])
+angular.module('orderController', ['ngTagsInput'])
 
 	// inject the Todo service factory into our controller
 	.controller('neworderController', ['$scope','$http','Pricebook', function($scope, $http, Pricebook) {
