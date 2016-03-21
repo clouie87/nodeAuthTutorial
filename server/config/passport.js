@@ -3,11 +3,11 @@
 
 // load all the things we need
 var FacebookStrategy = require('passport-facebook').Strategy;
+var User            = require('../model/user');
 
 // expose this function to our app using module.exports
 module.exports = function(passport,db) {
     // load up the user model
-    var User            = require('../model/user')(db);
     // =========================================================================
     // passport session setup ==================================================
     // =========================================================================
