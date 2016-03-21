@@ -1,5 +1,5 @@
 //all the routes for our application
-module.exports = function(app, passport,db) {
+module.exports = function(app, passport,db,pgp) {
 
     // =====================================
     // HOME PAGE (with login links) ========
