@@ -22,15 +22,16 @@ User.findOne = function(email, callback){
 	    .then(function (data) {
 	        console.log("DATA:", data); // print data;
 	        if (data.rows.length < 0){
-	    isNotAvailable = true; // update the user for return in callback
-	    ///email = email;
-	    console.log(email + ' is am not available!');
-	}
-	else{
-	    isNotAvailable = false;
-	    //email = email;
-	    console.log(email + ' is available');
-	}
+		    isNotAvailable = true; // update the user for return in callback
+		    ///email = email;
+		    console.log(email + ' is am not available!');
+		}
+		else{
+		    isNotAvailable = false;
+		    //email = email;
+		    console.log(email + ' is available');
+		}
+		return callback(null, isNotAvailable,data);
 	    })
 	    .catch(function (err) {
 	        return callback(err, isNotAvailable,[]);
@@ -56,15 +57,15 @@ User.findBysfid = function(sfid, callback){
 	    .then(function (data) {
 	        console.log("DATA:", data); // print data;
 	        if (data.rows.length > 0){
-	    console.log(result.rows[0] + ' is found!');
-	    var user = new User();
-	    user.email= result.rows[0]['email'];
-	    user.name = result.rows[0]['name'];
-	    user.sfid = result.rows[0]['sfid'];
-	    user.accountid =  result.rows[0]['accountid'];
-	    console.log(user.email);
-	    return callback(null, user);
-	}
+		    console.log(result.rows[0] + ' is found!');
+		    var user = new User();
+		    user.email= result.rows[0]['email'];
+		    user.name = result.rows[0]['name'];
+		    user.sfid = result.rows[0]['sfid'];
+		    user.accountid =  result.rows[0]['accountid'];
+		    console.log(user.email);
+		    return callback(null, user);
+		}
 	    })
 	    .catch(function (err) {
 	        return callback(err,null);
