@@ -57,7 +57,7 @@ module.exports = function(app, passport,db,pgp) {
 		db.query("SELECT * FROM salesforce.order INNER JOIN salesforce.orderitem ON salesforce.order.sfid = salesforce.orderitem.orderid INNER JOIN salesforce.pricebookentry ON salesforce.orderitem.pricebookentryid = salesforce.pricebookentry.sfid WHERE accountid ='"+loginUser.accountid+"';", true)
 		    .then(function (data) {
 		        console.log("DATA:", data); // print data;
-		        return res.json(data.rows);
+		        return res.json(data);
 		    })
 		    .catch(function (err) {
 		        console.log("ERROR:", error); // print the error;
@@ -88,7 +88,7 @@ module.exports = function(app, passport,db,pgp) {
             db.query("SELECT * FROM salesforce.Pricebook2", true)
 	    .then(function (data) {
 	        console.log("DATA:", data); // print data;
-	        return res.json(data.rows);
+	        return res.json(data);
 	    })
 	    .catch(function (err) {
 	        console.log("ERROR:", error); // print the error;
