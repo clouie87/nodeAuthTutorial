@@ -2,7 +2,7 @@ var pg = require('pg');
 pg.default.partitionCount = 1;
 var conString = process.env.DATABASE_URL;
 //all the routes for our application
-module.exports = function(app, passport) {
+module.exports = function(app, passport,db) {
 
     // =====================================
     // HOME PAGE (with login links) ========
@@ -57,16 +57,27 @@ module.exports = function(app, passport) {
             var loginUser = req.user;
             var results = [];
             console.log(loginUser);
-	var client = new pg.Client(conString);
-	    client.connect();
-	    client.query("SELECT * FROM salesforce.order INNER JOIN salesforce.orderitem ON salesforce.order.sfid = salesforce.orderitem.orderid INNER JOIN salesforce.pricebookentry ON salesforce.orderitem.pricebookentryid = salesforce.pricebookentry.sfid WHERE accountid ='"+loginUser.accountid+"';", [], function(err, result){
-	
-	        if(err){
-	            return res.status(500).json({ success: false,error : err});
-	        }
-	        if(result.hasOwnProperty('rows'))
-	         return res.json(result.rows);
-	    });
+		db.query("SELECT * FROM salesforce.order INNER JOIN salesforce.orderitem ON salesforce.order.sfid = salesforce.orderitem.orderid INNER JOIN salesforce.pricebookentry ON salesforce.orderitem.pricebookentryid = salesforce.pricebookentry.sfid WHERE accountid ='"+loginUser.accountid+"';", true)
+		    .then(function (data) {
+		        console.log("DATA:", data); // print data;
+		        return res.json(data.rows);
+		    })
+		    .catch(function (err) {
+		        console.log("ERROR:", error); // print the error;
+		        return res.status(500).json({ success: false,error : err});
+		    })
+		    .finally(function () {
+		        // If we do not close the connection pool when exiting the application,
+		        // it may take 30 seconds (poolIdleTimeout) before the process terminates,
+		        // waiting for the connection to expire in the pool.
+		
+		        // But if you normally just kill the process, then it doesn't matter.
+		
+		        pgp.end(); // for immediate app exit, closing the connection pool.
+		
+		        // See also:
+		        // https://github.com/vitaly-t/pg-promise#library-de-initialization
+		    });
 
         }else{
             return res.status(500).json({ success: false});
@@ -77,15 +88,26 @@ module.exports = function(app, passport) {
         
             var loginUser = req.user;
             var results = [];
-            var client = new pg.Client(conString);
-	    client.connect();
-	    client.query("SELECT * FROM salesforce.Pricebook2", [], function(err, result){
+            db.query("SELECT * FROM salesforce.Pricebook2", true)
+	    .then(function (data) {
+	        console.log("DATA:", data); // print data;
+	        return res.json(data.rows);
+	    })
+	    .catch(function (err) {
+	        console.log("ERROR:", error); // print the error;
+	        return res.status(500).json({ success: false,error : err});
+	    })
+	    .finally(function () {
+	        // If we do not close the connection pool when exiting the application,
+	        // it may take 30 seconds (poolIdleTimeout) before the process terminates,
+	        // waiting for the connection to expire in the pool.
 	
-	        if(err){
-	            return res.status(500).json({ success: false,error : err});
-	        }
-	         if(result.hasOwnProperty('rows'))
-	        	 return res.json(result.rows);
+	        // But if you normally just kill the process, then it doesn't matter.
+	
+	        pgp.end(); // for immediate app exit, closing the connection pool.
+	
+	        // See also:
+	        // https://github.com/vitaly-t/pg-promise#library-de-initialization
 	    });
         }else{
             return res.status(500).json({ success: false});
