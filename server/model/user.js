@@ -1,4 +1,4 @@
-var db=require('../config/database.js') // load our db
+require('../config/database.js') // load our db
 function User(){
     this.sfid = 0;
     this.email = "";
