@@ -16,7 +16,5 @@ var cn = {
 };
 // You can check for all default values in:
 // https://github.com/brianc/node-postgres/blob/master/lib/defaults.js
-
-module.exports = {
-    db = pgp(cn); // database instance;
-};
+var db = pgp(cn); // database instance;
+module.exports = db;
