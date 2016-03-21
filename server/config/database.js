@@ -18,3 +18,4 @@ var cn = {
 // https://github.com/brianc/node-postgres/blob/master/lib/defaults.js
 var db = pgp(cn); // database instance;
 module.exports = db;
+module.exports = pgp;
