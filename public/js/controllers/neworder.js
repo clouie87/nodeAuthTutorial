@@ -8,7 +8,7 @@ angular.module('orderController', [])
 		.success(function(data) {
 			$scope.pricebooks = data;
 		});
-	}]).directive('autoComplete', function($timeout) {
+	}]).directive('autocomplete', function($timeout) {
 	        return function(scope, iElement, iAttrs) {
 	            iElement.autocomplete({
 	                source: scope[iAttrs.uiItems],
